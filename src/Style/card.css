@@ -1,0 +1,16 @@
+.card-product {
+  align-items: center;
+  border: 2px groove black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  width: 18vw;
+}
+
+.card-product img {
+  border: 2px groove black;
+  border-radius: 5px;
+  height: 60%;
+  width: 80%;
+}
