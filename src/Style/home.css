@@ -51,7 +51,7 @@ main aside {
   width: 20vw;
 }
 
-main div p {
+main div .initial-message {
   text-align: center;
   width: 80vw;
 }

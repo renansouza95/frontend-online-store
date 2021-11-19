@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { RiShoppingCartLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../services/api';
+import CardProduct from '../Components/CardProduct';
 import '../Style/home.css';
 
 class Home extends Component {
@@ -51,9 +52,10 @@ class Home extends Component {
             </ul>
           </aside>
           <div>
-            <p data-testid="home-initial-message">
+            <p data-testid="home-initial-message" className="initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>
+            <CardProduct />
           </div>
         </main>
       </>
