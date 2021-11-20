@@ -37,7 +37,9 @@ class Home extends Component {
     e.preventDefault();
     const { input } = this.state;
     const response = await getProductsFromCategoryAndQuery('', input);
-    this.setState({ products: response.results });
+    this.setState({ products: response.results }, () => {
+      this.setState({ input: '' });
+    });
   }
 
   render() {
