@@ -112,6 +112,7 @@ class Home extends Component {
             {products.map(({ title, price, thumbnail, id }) => (
               <CardProduct
                 key={ id }
+                id={ id }
                 title={ title }
                 thumbnail={ thumbnail }
                 price={ price }

@@ -1,29 +1,26 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../../Style/card.css';
 import PropTypes from 'prop-types';
+import changeImageSize from '../../services/changeImageSize';
 
 class index extends Component {
   render() {
     const { price, thumbnail, title, id } = this.props;
-
-    const changeImageSize = (imgLink) => {
-      const noSize = imgLink.split('I.jpg');
-      const biggerImg = noSize.join('W.jpg');
-      return biggerImg;
-    };
-
     const image = changeImageSize(thumbnail);
 
     return (
-      <div
-        data-testid="product"
-        className="card-product"
-        id={ id }
-      >
-        <h3>{title}</h3>
-        <img src={ image } alt={ title } />
-        <p>{`R$ ${price} `}</p>
-      </div>
+      <Link to={ `/product/${id}` } data-testid="product-detail-link">
+        <div
+          data-testid="product"
+          className="card-product"
+          id={ id }
+        >
+          <h3>{title}</h3>
+          <img src={ image } alt={ title } />
+          <p>{`R$ ${price} `}</p>
+        </div>
+      </Link>
     );
   }
 }
