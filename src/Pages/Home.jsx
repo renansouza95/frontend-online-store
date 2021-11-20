@@ -12,11 +12,14 @@ class Home extends Component {
       categories: [],
       products: [],
       input: '',
+      categoryId: '',
     };
 
     this.handleCategory = this.handleCategory.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.getProduct = this.getProduct.bind(this);
+    this.handleRadio = this.handleRadio.bind(this);
+    this.getCategoryProducts = this.getCategoryProducts.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +36,14 @@ class Home extends Component {
     this.setState({ input: value });
   }
 
+  handleRadio({ target: { checked, id } }) {
+    if (checked) {
+      this.setState({ categoryId: id }, () => {
+        this.getCategoryProducts();
+      });
+    }
+  }
+
   async getProduct(e) {
     e.preventDefault();
     const { input } = this.state;
@@ -42,8 +53,14 @@ class Home extends Component {
     });
   }
 
+  async getCategoryProducts() {
+    const { categoryId } = this.state;
+    const response = await getProductsFromCategoryAndQuery(categoryId);
+    this.setState({ products: response.results });
+  }
+
   render() {
-    const { handleInput, getProduct } = this;
+    const { handleInput, getProduct, handleRadio } = this;
     const { categories, input, products } = this.state;
     return (
       <>
@@ -76,7 +93,12 @@ class Home extends Component {
               {categories.map(({ id, name }) => (
                 <li key={ id }>
                   <label data-testid="category" htmlFor={ id }>
-                    <input type="radio" name="categories" id={ id } />
+                    <input
+                      type="radio"
+                      name="categories"
+                      id={ id }
+                      onChange={ handleRadio }
+                    />
                     {name}
                   </label>
                 </li>
