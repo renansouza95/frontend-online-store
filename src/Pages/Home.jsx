@@ -88,7 +88,7 @@ class Home extends Component {
           getProduct={ getProduct }
           searchInput={ searchInput }
         />
-        <main>
+        <main className="main-content">
           <Categories getCategoryProducts={ getCategoryProducts } />
           <div className="products-container">
             {loading ? loader : productsContainer}

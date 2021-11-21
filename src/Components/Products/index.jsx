@@ -9,13 +9,14 @@ class index extends React.Component {
     return (
       <div className="products">
         {products.map(({ title, price, thumbnail, id }) => (
-          <CardProduct
-            key={ id }
-            id={ id }
-            title={ title }
-            thumbnail={ thumbnail }
-            price={ price }
-          />
+          <div key={ id } className="product">
+            <CardProduct
+              id={ id }
+              title={ title }
+              thumbnail={ thumbnail }
+              price={ price }
+            />
+          </div>
         ))}
       </div>
     );

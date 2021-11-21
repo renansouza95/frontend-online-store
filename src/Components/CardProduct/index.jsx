@@ -16,7 +16,7 @@ class index extends Component {
           className="card-product"
           id={ id }
         >
-          <h3>{title}</h3>
+          <p className="product-title">{title}</p>
           <img src={ image } alt={ title } />
           <p>{`R$ ${price} `}</p>
         </div>

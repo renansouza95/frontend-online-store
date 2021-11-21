@@ -18,8 +18,8 @@
 }
 
 .input-search:focus {
-  outline: none;
   box-shadow: rgba(15, 23, 90, 0.09) 0 2px 5px;
+  outline: none;
 }
 
 .cart-button {

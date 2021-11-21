@@ -33,6 +33,7 @@ class index extends React.Component {
               <button
                 data-testid="category"
                 type="button"
+                className="btn-category"
                 id={ id }
                 onClick={ getCategoryProducts }
               >
