@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Loader from 'react-loader-spinner';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Products from '../Components/Products';
 import Header from '../Components/Header';
@@ -12,6 +13,7 @@ class Home extends Component {
       products: [],
       searchInput: '',
       categoryId: '',
+      loading: false,
     };
 
     this.handleInput = this.handleInput.bind(this);
@@ -32,26 +34,49 @@ class Home extends Component {
   async getProduct(e) {
     e.preventDefault();
     const { searchInput } = this.state;
-    const response = await getProductsFromCategoryAndQuery('', searchInput);
-    this.setState({ products: response.results }, () => {
-      this.setState({ searchInput: '' });
+
+    this.setState({ loading: true }, () => {
+      getProductsFromCategoryAndQuery('', searchInput)
+        .then((response) => {
+          this.setState({ products: response.results }, () => {
+            this.setState({ searchInput: '', loading: false });
+          });
+        });
     });
   }
 
   async getCategoryProducts() {
     const { categoryId } = this.state;
-    const response = await getProductsFromCategoryAndQuery(categoryId);
-    this.setState({ products: response.results });
+
+    this.setState({ loading: true }, () => {
+      getProductsFromCategoryAndQuery(categoryId)
+        .then((response) => {
+          this.setState({
+            products: response.results,
+            loading: false,
+          });
+        });
+    });
   }
 
   render() {
     const { handleInput, getProduct } = this;
-    const { searchInput, products } = this.state;
+    const { searchInput, products, loading } = this.state;
+
+    const loader = (
+      <div className="loader">
+        <Loader type="ThreeDots" color="#272727" height={ 40 } width={ 40 } />
+      </div>
+    );
 
     const initialMessage = (
       <p data-testid="home-initial-message" className="initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </p>
+    );
+
+    const productsContainer = (
+      products.length === 0 ? initialMessage : <Products products={ products } />
     );
 
     return (
@@ -63,8 +88,8 @@ class Home extends Component {
         />
         <main>
           <Categories handleInput={ handleInput } />
-          <div>
-            {products.length === 0 ? initialMessage : <Products products={ products } />}
+          <div className="products-container">
+            {loading ? loader : productsContainer}
           </div>
         </main>
       </>

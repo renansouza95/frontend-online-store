@@ -55,3 +55,11 @@ main div .initial-message {
   text-align: center;
   width: 80vw;
 }
+
+.products-container {
+  width: 80vw;
+}
+
+.loader {
+  text-align: center;
+}
