@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import CardProduct from '../Components/CardProduct';
+import Products from '../Components/Products';
 import Header from '../Components/Header';
 import Categories from '../Components/Categories';
 import '../Style/home.css';
@@ -60,15 +60,7 @@ class Home extends Component {
             <p data-testid="home-initial-message" className="initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>
-            {products.map(({ title, price, thumbnail, id }) => (
-              <CardProduct
-                key={ id }
-                id={ id }
-                title={ title }
-                thumbnail={ thumbnail }
-                price={ price }
-              />
-            ))}
+            <Products products={ products } />
           </div>
         </main>
       </>
