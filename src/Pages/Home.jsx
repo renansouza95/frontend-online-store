@@ -45,22 +45,24 @@ class Home extends Component {
     });
   }
 
-  async getCategoryProducts() {
-    const { categoryId } = this.state;
+  async getCategoryProducts({ target: { id } }) {
+    this.setState({ categoryId: id }, () => {
+      const { categoryId } = this.state;
 
-    this.setState({ loading: true }, () => {
-      getProductsFromCategoryAndQuery(categoryId)
-        .then((response) => {
-          this.setState({
-            products: response.results,
-            loading: false,
+      this.setState({ loading: true }, () => {
+        getProductsFromCategoryAndQuery(categoryId)
+          .then((response) => {
+            this.setState({
+              products: response.results,
+              loading: false,
+            });
           });
-        });
+      });
     });
   }
 
   render() {
-    const { handleInput, getProduct } = this;
+    const { handleInput, getProduct, getCategoryProducts } = this;
     const { searchInput, products, loading } = this.state;
 
     const loader = (
@@ -87,7 +89,7 @@ class Home extends Component {
           searchInput={ searchInput }
         />
         <main>
-          <Categories handleInput={ handleInput } />
+          <Categories getCategoryProducts={ getCategoryProducts } />
           <div className="products-container">
             {loading ? loader : productsContainer}
           </div>

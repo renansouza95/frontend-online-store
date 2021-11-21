@@ -23,22 +23,21 @@ class index extends React.Component {
 
   render() {
     const { categories } = this.state;
-    const { handleInput } = this.props;
+    const { getCategoryProducts } = this.props;
 
     return (
-      <aside>
+      <aside className="categories">
         <ul>
           {categories.map(({ id, name }) => (
             <li key={ id }>
-              <label data-testid="category" htmlFor={ id }>
-                <input
-                  type="radio"
-                  name="categories"
-                  id={ id }
-                  onChange={ handleInput }
-                />
+              <button
+                data-testid="category"
+                type="button"
+                id={ id }
+                onClick={ getCategoryProducts }
+              >
                 {name}
-              </label>
+              </button>
             </li>
           ))}
         </ul>
@@ -48,7 +47,7 @@ class index extends React.Component {
 }
 
 index.propTypes = {
-  handleInput: PropTypes.func.isRequired,
+  getCategoryProducts: PropTypes.func.isRequired,
 };
 
 export default index;
