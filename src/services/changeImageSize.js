@@ -1,5 +1,5 @@
-export default function changeImageSize(imgLink) {
+export default function changeImageSize(imgLink, letter = 'W') {
   const noSize = imgLink.split('I.jpg');
-  const biggerImg = noSize.join('W.jpg');
+  const biggerImg = noSize.join(`${letter}.jpg`);
   return biggerImg;
 }
