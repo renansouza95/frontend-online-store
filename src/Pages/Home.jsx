@@ -47,6 +47,13 @@ class Home extends Component {
   render() {
     const { handleInput, getProduct } = this;
     const { searchInput, products } = this.state;
+
+    const initialMessage = (
+      <p data-testid="home-initial-message" className="initial-message">
+        Digite algum termo de pesquisa ou escolha uma categoria.
+      </p>
+    );
+
     return (
       <>
         <Header
@@ -57,10 +64,7 @@ class Home extends Component {
         <main>
           <Categories handleInput={ handleInput } />
           <div>
-            <p data-testid="home-initial-message" className="initial-message">
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </p>
-            <Products products={ products } />
+            {products.length === 0 ? initialMessage : <Products products={ products } />}
           </div>
         </main>
       </>
