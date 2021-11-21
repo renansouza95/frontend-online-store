@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { RiShoppingCartLine } from 'react-icons/ri';
+import '../../Style/header.css';
 
 class index extends React.Component {
   render() {
     const { handleInput, getProduct, searchInput } = this.props;
 
     return (
-      <header>
+      <header className="header">
         <div className="container-search">
           <input
             data-testid="query-input"
@@ -20,14 +21,17 @@ class index extends React.Component {
           />
           <input
             data-testid="query-button"
-            className="btn-search"
+            className="btn btn-black btn-search"
             type="submit"
             value="Search"
             onClick={ getProduct }
           />
         </div>
         <Link data-testid="shopping-cart-button" to="/shopping-cart">
-          <RiShoppingCartLine />
+          <div className="cart-button">
+            <p>Carrinho</p>
+            <RiShoppingCartLine size={ 25 } color="#252525" />
+          </div>
         </Link>
       </header>
     );
