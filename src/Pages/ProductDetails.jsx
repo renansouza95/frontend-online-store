@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getDetailedProduct } from '../services/api';
+import { RiShoppingCartLine, RiReplyLine } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
+import { getDetailedProduct, getProductDescription } from '../services/api';
 import changeImageSize from '../services/changeImageSize';
+import '../Style/productDetails.css';
 
 class ProductDetails extends Component {
   constructor() {
@@ -9,6 +12,7 @@ class ProductDetails extends Component {
 
     this.state = {
       product: {},
+      description: {},
     };
 
     this.getProduct = this.getProduct.bind(this);
@@ -22,43 +26,65 @@ class ProductDetails extends Component {
     const { match: { params: { id } } } = this.props;
 
     const response = await getDetailedProduct(id);
-    this.setState({ product: response });
+    const responseDescription = await getProductDescription(id);
+    this.setState({
+      product: response,
+      description: responseDescription,
+    });
   }
 
   render() {
-    const { product: { title, price, thumbnail = '', attributes = [] } } = this.state;
-    const image = changeImageSize(thumbnail);
+    const {
+      product: { title, price, thumbnail = '', attributes = [] },
+      description: { plain_text: description },
+    } = this.state;
+    const image = changeImageSize(thumbnail, 'O');
 
     const attributesList = (
-      attributes.map(({ value_id: id, name, value_name: info }, index) => (
-        <li key={ `${id}(${index})` } className="product-specification">
-          {`${name}: ${info}`}
-        </li>
-      ))
+      attributes.map(({ value_id: id, name, value_name: info }, index) => {
+        info = (info !== null && info.includes(',')) ? info.split(',').join(', ') : info;
+
+        return (info === null) ? '' : (
+          <li key={ `${id}(${index})` } className="product-specification">
+            {`${name}: ${info}`}
+          </li>
+        );
+      })
     );
 
     return (
-      <div>
-        <div className="product-basic">
-          <span
-            data-testid="product-detail-name"
-            className="product-name"
-          >
-            { title }
-          </span>
-          <span className="product-price">
-            - R$
-            { price }
-          </span>
+      <div className="product-details-page">
+        <div>
+          <Link to="/">
+            <RiReplyLine />
+          </Link>
+          <Link to="/shopping-cart">
+            <RiShoppingCartLine />
+          </Link>
         </div>
-        <div className="product">
-          <div className="product-img">
-            <img src={ image } alt={ title } />
+        <div className="product-details">
+          <div className="product-info">
+            <div className="product-basic">
+              <p
+                data-testid="product-detail-name"
+                className="product-name"
+              >
+                {title}
+              </p>
+              <p className="product-price">
+                { `R$ ${price}` }
+              </p>
+              <img src={ image } alt={ title } />
+            </div>
+            <div className="product-specifications">
+              <p>Especificações: </p>
+              <ul>
+                {attributes.length !== 0 && attributesList}
+              </ul>
+            </div>
           </div>
-          <div className="product-specifications">
-            <ul>
-              {attributes.length !== 0 && attributesList}
-            </ul>
+          <div className="product-description">
+            <p>{description}</p>
           </div>
         </div>
       </div>
