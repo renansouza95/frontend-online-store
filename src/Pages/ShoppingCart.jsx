@@ -30,7 +30,13 @@ class ShoppingCart extends Component {
     this.setState({ cartItems: getFromStorage() });
   }
 
-  removeItem() {}
+  removeItem({ target: { id } }) {
+    const { cartItems } = this.state;
+    const newCart = cartItems.filter((item) => item.id !== id);
+
+    this.setState({ cartItems: newCart });
+    addCartToStorage(newCart);
+  }
 
   amountLess({ target: { id } }) {
     const { cartItems } = this.state;
