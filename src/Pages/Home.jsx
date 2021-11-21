@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { RiShoppingCartLine } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import CardProduct from '../Components/CardProduct';
+import Header from '../Components/Header';
 import '../Style/home.css';
 
 class Home extends Component {
@@ -11,14 +10,13 @@ class Home extends Component {
     this.state = {
       categories: [],
       products: [],
-      input: '',
+      searchInput: '',
       categoryId: '',
     };
 
     this.handleCategory = this.handleCategory.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.getProduct = this.getProduct.bind(this);
-    this.handleRadio = this.handleRadio.bind(this);
     this.getCategoryProducts = this.getCategoryProducts.bind(this);
   }
 
@@ -30,26 +28,22 @@ class Home extends Component {
     this.setState({ categories: await getCategories() });
   }
 
-  handleInput({ target }) {
-    const { value } = target;
-
-    this.setState({ input: value });
-  }
-
-  handleRadio({ target: { checked, id } }) {
+  handleInput({ target: { value, checked, id } }) {
     if (checked) {
       this.setState({ categoryId: id }, () => {
         this.getCategoryProducts();
       });
+    } else {
+      this.setState({ searchInput: value });
     }
   }
 
   async getProduct(e) {
     e.preventDefault();
-    const { input } = this.state;
-    const response = await getProductsFromCategoryAndQuery('', input);
+    const { searchInput } = this.state;
+    const response = await getProductsFromCategoryAndQuery('', searchInput);
     this.setState({ products: response.results }, () => {
-      this.setState({ input: '' });
+      this.setState({ searchInput: '' });
     });
   }
 
@@ -60,33 +54,15 @@ class Home extends Component {
   }
 
   render() {
-    const { handleInput, getProduct, handleRadio } = this;
-    const { categories, input, products } = this.state;
+    const { handleInput, getProduct } = this;
+    const { categories, searchInput, products } = this.state;
     return (
       <>
-        <header>
-          <div className="container-search">
-            <input
-              data-testid="query-input"
-              className="input-search"
-              type="text"
-              placeholder="Procure seu produto..."
-              onChange={ handleInput }
-              value={ input }
-            />
-            <input
-              data-testid="query-button"
-              className="btn-search"
-              type="submit"
-              value="Search"
-              onClick={ getProduct }
-            />
-          </div>
-          <Link data-testid="shopping-cart-button" to="/shopping-cart">
-            <RiShoppingCartLine />
-          </Link>
-        </header>
-
+        <Header
+          handleInput={ handleInput }
+          getProduct={ getProduct }
+          searchInput={ searchInput }
+        />
         <main>
           <aside>
             <ul>
@@ -97,7 +73,7 @@ class Home extends Component {
                       type="radio"
                       name="categories"
                       id={ id }
-                      onChange={ handleRadio }
+                      onChange={ handleInput }
                     />
                     {name}
                   </label>
