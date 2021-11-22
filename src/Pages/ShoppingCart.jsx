@@ -84,6 +84,7 @@ class ShoppingCart extends Component {
                 </p>
                 <div className="item-amount">
                   <button
+                    data-testid="product-decrease-quantity"
                     type="button"
                     id={ id }
                     onClick={ this.amountLess }
@@ -93,6 +94,7 @@ class ShoppingCart extends Component {
                   </button>
                   <p data-testid="shopping-cart-product-quantity">{amount}</p>
                   <button
+                    data-testid="product-increase-quantity"
                     type="button"
                     id={ id }
                     onClick={ this.amountPlus }
