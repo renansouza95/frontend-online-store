@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import { getDetailedProduct, getProductDescription } from '../services/api';
 import changeImageSize from '../services/changeImageSize';
+import { addToStorage } from '../services/storageCartItem';
+import AddToCart from '../Components/AddToCart';
 import '../Style/productDetails.css';
 
 class ProductDetails extends Component {
@@ -19,6 +21,7 @@ class ProductDetails extends Component {
     };
 
     this.getProduct = this.getProduct.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +39,13 @@ class ProductDetails extends Component {
     }, () => {
       this.setState({ loading: false });
     });
+  }
+
+  addToCart() {
+    const { product: { price, thumbnail, title, id } } = this.state;
+    const item = { price, thumbnail, title, id };
+
+    addToStorage(item);
   }
 
   render() {
@@ -77,6 +87,7 @@ class ProductDetails extends Component {
             <p className="product-price">
               { `R$ ${price}` }
             </p>
+            <AddToCart addToCart={ this.addToCart } idTest="product-detail-add-to-cart" />
             <img src={ image } alt={ title } />
           </div>
           <div className="product-specifications">
@@ -98,7 +109,7 @@ class ProductDetails extends Component {
           <Link to="/">
             <RiReplyLine />
           </Link>
-          <Link to="/shopping-cart">
+          <Link to="/shopping-cart" data-testid="shopping-cart-button">
             <RiShoppingCartLine />
           </Link>
         </div>

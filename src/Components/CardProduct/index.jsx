@@ -36,7 +36,7 @@ class index extends Component {
             <p>{`R$ ${price} `}</p>
           </div>
         </Link>
-        <AddToCart addToCart={ this.addToCart } />
+        <AddToCart addToCart={ this.addToCart } idTest="product-add-to-cart" />
       </div>
     );
   }

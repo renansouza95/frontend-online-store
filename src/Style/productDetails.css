@@ -48,3 +48,7 @@
   text-align: justify;
   width: 80%;
 }
+
+.product-basic button {
+  margin: 0.7rem 0 0.5rem;
+}
