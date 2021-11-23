@@ -7,6 +7,7 @@ import { getDetailedProduct, getProductDescription } from '../services/api';
 import changeImageSize from '../services/changeImageSize';
 import { addToStorage } from '../services/storageCartItem';
 import AddToCart from '../Components/AddToCart';
+import ReviewForm from '../Components/ReviewForm';
 import '../Style/productDetails.css';
 
 class ProductDetails extends Component {
@@ -99,6 +100,10 @@ class ProductDetails extends Component {
         </div>
         <div className="product-description">
           <p>{description}</p>
+        </div>
+        <div className="reviews">
+          <p className="reviews-title">Avaliações</p>
+          <ReviewForm />
         </div>
       </div>
     );

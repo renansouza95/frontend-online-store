@@ -46,3 +46,7 @@ p, h1, h2, h3, li {
   border-color: #252525;
   color: #f0f0f0;
 }
+
+button svg {
+  pointer-events: none;
+}
