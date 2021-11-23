@@ -5,6 +5,7 @@ import { RiShoppingCartLine } from 'react-icons/ri';
 import styled from 'styled-components';
 import '../../Style/header.css';
 import TrybeLogo from '../../image/trybe-logo white.png';
+import CartCounter from '../CartCounter';
 
 const Logo = styled.img`
   width: 40px;
@@ -25,7 +26,7 @@ const SearchInput = styled.input`
 
 class index extends React.Component {
   render() {
-    const { handleInput, getProduct, searchInput } = this.props;
+    const { handleInput, getProduct, searchInput, upAmount } = this.props;
 
     return (
       <header className="header">
@@ -58,6 +59,7 @@ class index extends React.Component {
           to="/shopping-cart"
         >
           <div className="cart-button">
+            <CartCounter upAmount={ upAmount } />
             <RiShoppingCartLine
               color="rgb(245,245,245)"
               size={ 25 }
@@ -73,6 +75,7 @@ index.propTypes = {
   handleInput: PropTypes.func.isRequired,
   getProduct: PropTypes.func.isRequired,
   searchInput: PropTypes.string.isRequired,
+  upAmount: PropTypes.bool.isRequired,
 };
 
 export default index;

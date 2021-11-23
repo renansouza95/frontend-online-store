@@ -18,11 +18,13 @@ class App extends React.Component {
       clickSearch: false,
 
       loadingProduct: false,
+      upAmount: false,
     };
 
     this.handleInput = this.handleInput.bind(this);
     this.getProduct = this.getProduct.bind(this);
     this.getCategoryProducts = this.getCategoryProducts.bind(this);
+    this.updateAmount = this.updateAmount.bind(this);
   }
 
   handleInput({ target: { value, checked, id } }) {
@@ -65,8 +67,14 @@ class App extends React.Component {
     });
   }
 
+  updateAmount() {
+    this.setState({ upAmount: true }, () => {
+      this.setState({ upAmount: false });
+    });
+  }
+
   render() {
-    const { searchInput, products, loadingProduct, clickSearch } = this.state;
+    const { searchInput, products, loadingProduct, clickSearch, upAmount } = this.state;
 
     return (
       <BrowserRouter>
@@ -74,10 +82,23 @@ class App extends React.Component {
           handleInput={ this.handleInput }
           getProduct={ this.getProduct }
           searchInput={ searchInput }
+          upAmount={ upAmount }
         />
         <Switch>
-          <Route exact path="/shopping-cart" component={ ShoppingCart } />
-          <Route exact path="/product/:id" component={ ProductDetails } />
+          <Route
+            exact
+            path="/shopping-cart"
+            render={ (props) => (
+              <ShoppingCart { ...props } updateAmount={ this.updateAmount } />
+            ) }
+          />
+          <Route
+            exact
+            path="/product/:id"
+            render={ (props) => (
+              <ProductDetails { ...props } updateAmount={ this.updateAmount } />
+            ) }
+          />
           <Route
             exact
             path="/"
@@ -87,6 +108,7 @@ class App extends React.Component {
                 products={ products }
                 loading={ loadingProduct }
                 getCategoryProducts={ this.getCategoryProducts }
+                updateAmount={ this.updateAmount }
               />
             ) }
           />
