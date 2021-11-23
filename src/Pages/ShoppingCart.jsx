@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { RiShoppingCartLine, RiReplyLine } from 'react-icons/ri';
+import { RiReplyLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { IoIosRemoveCircleOutline, IoIosAddCircleOutline } from 'react-icons/io';
 import { BsTrashFill } from 'react-icons/bs';
@@ -58,9 +58,8 @@ class ShoppingCart extends Component {
     return (
       <div className="shopping-cart-page">
         <Link to="/">
-          <RiReplyLine />
+          <RiReplyLine className="icon-backTo" color="rgb(46,46,46)" />
         </Link>
-        <RiShoppingCartLine />
         {cartItems.length === 0
         && <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>}
 
