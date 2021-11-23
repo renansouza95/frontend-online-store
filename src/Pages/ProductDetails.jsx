@@ -9,6 +9,8 @@ import changeImageSize from '../services/changeImageSize';
 import { addToStorage } from '../services/storageCartItem';
 import AddToCart from '../Components/AddToCart';
 import ReviewForm from '../Components/ReviewForm';
+import StarsReview from '../Components/StarsReview';
+import { getReviews } from '../services/storageReviews';
 import '../Style/productDetails.css';
 
 const ProductImage = styled.img`
@@ -23,16 +25,19 @@ class ProductDetails extends Component {
     this.state = {
       product: {},
       description: {},
+      reviews: [],
 
       loading: true,
     };
 
     this.getProduct = this.getProduct.bind(this);
+    this.setReviews = this.setReviews.bind(this);
     this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
     this.getProduct();
+    this.setReviews();
   }
 
   async getProduct() {
@@ -48,6 +53,10 @@ class ProductDetails extends Component {
     });
   }
 
+  setReviews() {
+    this.setState({ reviews: getReviews() });
+  }
+
   addToCart() {
     const { product: { price, thumbnail, title, id } } = this.state;
     const item = { price, thumbnail, title, id };
@@ -60,6 +69,7 @@ class ProductDetails extends Component {
       product: { title, price, thumbnail = '', attributes = [] },
       description: { plain_text: description },
       loading,
+      reviews,
     } = this.state;
     const image = changeImageSize(thumbnail, 'O');
 
@@ -110,9 +120,24 @@ class ProductDetails extends Component {
         <div className="product-description">
           <p>{description}</p>
         </div>
-        <div className="reviews">
+        <div className="reviews-container">
           <p className="reviews-title">Avaliações</p>
-          <ReviewForm />
+          <ReviewForm
+            setReviews={ this.setReviews }
+          />
+          <div className="reviews">
+            {reviews === null ? (
+              <p>Seja o primeiro a avaliar!</p>
+            ) : (
+              reviews.map(({ email, stars, comment }, index) => (
+                <div key={ `review-${index}` } className="review">
+                  <p>{email}</p>
+                  <div><StarsReview clickable={ false } selectedStars={ stars } /></div>
+                  <p>{comment}</p>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
     );

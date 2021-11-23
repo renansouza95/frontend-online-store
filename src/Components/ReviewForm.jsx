@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import StarsReview from './StarsReview';
+import { addReview } from '../services/storageReviews';
 
 class ReviewForm extends Component {
   constructor() {
@@ -8,25 +10,57 @@ class ReviewForm extends Component {
       email: '',
       stars: 0,
       comment: '',
+
+      disableButton: true,
+      resetStars: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleStars = this.handleStars.bind(this);
+    this.validateFields = this.validateFields.bind(this);
     this.evaluateButton = this.evaluateButton.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => {
+      this.setState({ disableButton: this.validateFields() });
+    });
   }
 
   handleStars(stars) {
-    this.setState({ stars });
+    this.setState({ stars }, () => {
+      this.setState({ disableButton: this.validateFields() });
+    });
   }
 
-  evaluateButton() {}
+  validateFields() {
+    const { email, stars } = this.state;
+    const validateEmail = email.match(
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/igm,
+    );
+    /* Source: https://www.regextester.com/100026 */
+    const validations = (
+      !validateEmail || stars === 0
+    );
+    console.log(validations);
+
+    return validations;
+  }
+
+  evaluateButton() {
+    const { email, stars, comment } = this.state;
+    const reviewObj = { email, stars, comment };
+    const { setReviews } = this.props;
+    addReview(reviewObj);
+
+    this.setState({ email: '', stars: 0, comment: '', resetStars: true }, () => {
+      this.setState({ resetStars: false });
+      setReviews();
+    });
+  }
 
   render() {
-    const { email, stars, comment } = this.state;
+    const { email, stars, comment, disableButton, resetStars } = this.state;
 
     return (
       <div className="review-form">
@@ -40,7 +74,12 @@ class ReviewForm extends Component {
               onChange={ this.handleChange }
             />
             <div className="stars">
-              <StarsReview handleStars={ this.handleStars } stars={ stars } />
+              <StarsReview
+                handleStars={ this.handleStars }
+                stars={ stars }
+                resetStars={ resetStars }
+                clickable
+              />
             </div>
           </div>
           <div className="form-row">
@@ -59,6 +98,7 @@ class ReviewForm extends Component {
               type="button"
               className="btn btn-black"
               onClick={ this.evaluateButton }
+              disabled={ disableButton }
             >
               Avaliar
             </button>
@@ -68,5 +108,9 @@ class ReviewForm extends Component {
     );
   }
 }
+
+ReviewForm.propTypes = {
+  setReviews: PropTypes.func.isRequired,
+};
 
 export default ReviewForm;
