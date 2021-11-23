@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
 import { RiShoppingCartLine, RiReplyLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
-import {
-  IoIosCloseCircleOutline,
-  IoIosRemoveCircleOutline,
-  IoIosAddCircleOutline } from 'react-icons/io';
+import styled from 'styled-components';
+import { IoIosRemoveCircleOutline, IoIosAddCircleOutline } from 'react-icons/io';
+import { BsTrashFill } from 'react-icons/bs';
 import { getFromStorage, addCartToStorage } from '../services/storageCartItem';
 import '../Style/shoppingCart.css';
+
+const LiStyled = styled.li`
+  width: 25vw;
+  border: 1px groove white;
+  box-shadow: 0  20px 30px gray;
+  border-radius: 10px;
+  background-color: white;
+  list-style: none;
+  padding: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  img{
+    width: 100px;
+  }
+`;
 
 class ShoppingCart extends Component {
   constructor() {
@@ -67,13 +81,13 @@ class ShoppingCart extends Component {
         <div className="cart-items">
           <ul>
             {cartItems.map(({ id, thumbnail, title, price, amount }) => (
-              <li key={ id }>
+              <LiStyled key={ id }>
                 <button
                   type="button"
                   id={ id }
                   onClick={ this.removeItem }
                 >
-                  <IoIosCloseCircleOutline size={ 30 } />
+                  <BsTrashFill size={ 20 } style={ { color: 'red' } } />
                 </button>
                 <img src={ thumbnail } alt={ title } className="cart-item-img" />
                 <p
@@ -103,7 +117,7 @@ class ShoppingCart extends Component {
                   </button>
                 </div>
                 <p className="item-price">{price}</p>
-              </li>
+              </LiStyled>
             ))}
           </ul>
         </div>
