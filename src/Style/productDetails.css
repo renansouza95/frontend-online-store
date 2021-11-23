@@ -8,11 +8,16 @@
 .product-info {
   display: flex;
   justify-content: space-between;
-  width: 80%;
+  width: 680%;
+}
+
+.product-basic {
+  border: 2px solid black;
+  margin-right: 10px;
 }
 
 .product-basic .product-name {
-  font-size: xx-large;
+  font-size: x-large;
   max-width: 40vw;
 }
 
@@ -24,17 +29,18 @@
 .product-basic img {
   box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
   margin: 1rem 0;
-  width: 40vw;
 }
 
 .product-specifications {
-  margin-top: 1rem;
+  border: 2px solid black;
+  height: 50vh;
+  margin-top: 5rem;
+  overflow: auto;
+  width: 90vw;
 }
 
 .product-specifications ul {
-  height: 500px;
-  overflow-y: scroll;
-  width: 450px;
+  height: inherit;
 }
 
 .product-specifications p {
@@ -47,6 +53,7 @@
   margin: 2rem 0;
   text-align: justify;
   width: 80%;
+  
 }
 
 .product-basic button {
@@ -55,4 +62,18 @@
 
 .reviews .reviews-title {
   font-size: x-large;
+}
+
+.icon-back {
+  font-size: 36px;
+  left: 5px;
+  margin: 0;
+  position: absolute;
+  text-decoration: none;
+  top: 75px;
+  transition: all 0.2s linear;
+}
+
+.icon-back:hover {
+  transform: scale(1.4);
 }

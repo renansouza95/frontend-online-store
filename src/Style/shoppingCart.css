@@ -57,11 +57,11 @@
 
 .icon-backTo {
   font-size: 36px;
-  left: 50px;
+  left: 5px;
   margin: 0;
   position: absolute;
   text-decoration: none;
-  top: 90px;
+  top: 75px;
   transition: all 0.2s linear;
 }
 
