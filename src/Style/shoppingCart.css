@@ -1,5 +1,56 @@
+.cart-items ul {
+  align-content: center;
+  display: flex;
+  flex-flow: row wrap;
+  min-height: 100vh;
+  min-width: 99vw;
+}
 
+.container-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
 
 .cart-items button svg {
   pointer-events: none;
+}
+
+.btn-icon-trash {
+  align-items: center;
+  background-color: rgb(199, 199, 199);
+  border: 1px groove white;
+  border-radius: 50%;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  margin-right: 10px;
+  transition: all 0.2s linear;
+  width: 30px;
+}
+
+.btn-icon-trash:hover {
+  transform: scale(1.2);
+}
+
+.button-sub, .button-sum {
+  align-items: center;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  height: 35px;
+  justify-content: center;
+  transition: 0.2s linear;
+  user-select: none;
+  width: 35px;
+}
+
+.text-amout {
+  margin: 5px 10px;
+}
+
+.button-sub:hover, .button-sum:hover {
+  box-shadow: 2px 2px 20px lightgray;
+  cursor: pointer;
+  transform: scale(1.2);
+  user-select: none;
 }

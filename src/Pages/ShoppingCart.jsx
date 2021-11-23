@@ -1,26 +1,11 @@
 import React, { Component } from 'react';
 import { RiShoppingCartLine, RiReplyLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { IoIosRemoveCircleOutline, IoIosAddCircleOutline } from 'react-icons/io';
 import { BsTrashFill } from 'react-icons/bs';
 import { getFromStorage, addCartToStorage } from '../services/storageCartItem';
 import '../Style/shoppingCart.css';
-
-const LiStyled = styled.li`
-  width: 25vw;
-  border: 1px groove white;
-  box-shadow: 0  20px 30px gray;
-  border-radius: 10px;
-  background-color: white;
-  list-style: none;
-  padding: 20px;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  img{
-    width: 100px;
-  }
-`;
+import { ItemName, LiStyled } from '../Style/StyledComponent';
 
 class ShoppingCart extends Component {
   constructor() {
@@ -78,45 +63,59 @@ class ShoppingCart extends Component {
         <RiShoppingCartLine />
         {cartItems.length === 0
         && <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>}
+
         <div className="cart-items">
           <ul>
             {cartItems.map(({ id, thumbnail, title, price, amount }) => (
               <LiStyled key={ id }>
                 <button
+                  className="btn-icon-trash"
                   type="button"
                   id={ id }
                   onClick={ this.removeItem }
                 >
-                  <BsTrashFill size={ 20 } style={ { color: 'red' } } />
+                  <BsTrashFill size={ 20 } style={ { color: 'black' } } />
                 </button>
                 <img src={ thumbnail } alt={ title } className="cart-item-img" />
-                <p
+                <ItemName
                   data-testid="shopping-cart-product-name"
                   className="item-name"
                 >
                   {title}
-                </p>
+                </ItemName>
                 <div className="item-amount">
-                  <button
-                    data-testid="product-decrease-quantity"
-                    type="button"
-                    id={ id }
-                    onClick={ this.amountLess }
-                    disabled={ amount === 1 }
-                  >
-                    <IoIosRemoveCircleOutline size={ 20 } />
-                  </button>
-                  <p data-testid="shopping-cart-product-quantity">{amount}</p>
-                  <button
-                    data-testid="product-increase-quantity"
-                    type="button"
-                    id={ id }
-                    onClick={ this.amountPlus }
-                  >
-                    <IoIosAddCircleOutline size={ 20 } />
-                  </button>
+                  <div className="container-buttons">
+                    <button
+                      data-testid="product-decrease-quantity"
+                      type="button"
+                      id={ id }
+                      onClick={ this.amountLess }
+                      disabled={ amount === 1 }
+                      className="button-sub"
+                    >
+                      <IoIosRemoveCircleOutline size={ 20 } />
+                    </button>
+                    <p
+                      className="text-amout"
+                      data-testid="shopping-cart-product-quantity"
+                    >
+                      {amount}
+                    </p>
+                    <button
+                      data-testid="product-increase-quantity"
+                      type="button"
+                      id={ id }
+                      onClick={ this.amountPlus }
+                      className="button-sum"
+                    >
+                      <IoIosAddCircleOutline size={ 20 } />
+                    </button>
+                  </div>
                 </div>
-                <p className="item-price">{price}</p>
+                <p className="item-price">
+                  R$
+                  {price}
+                </p>
               </LiStyled>
             ))}
           </ul>
