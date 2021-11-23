@@ -109,7 +109,7 @@ class ProductDetails extends Component {
           <Link to="/">
             <RiReplyLine />
           </Link>
-          <Link to="/shopping-cart" data-testid="shopping-cart-button">
+          <Link to="/shopping-cart">
             <RiShoppingCartLine />
           </Link>
         </div>

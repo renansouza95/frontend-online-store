@@ -1,69 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
-import { getProductsFromCategoryAndQuery } from '../services/api';
 import Products from '../Components/Products';
-import Header from '../Components/Header';
 import Categories from '../Components/Categories';
 import '../Style/home.css';
 
 class Home extends Component {
-  constructor() {
-    super();
-    this.state = {
-      products: [],
-      searchInput: '',
-      categoryId: '',
-      loading: false,
-    };
-
-    this.handleInput = this.handleInput.bind(this);
-    this.getProduct = this.getProduct.bind(this);
-    this.getCategoryProducts = this.getCategoryProducts.bind(this);
-  }
-
-  handleInput({ target: { value, checked, id } }) {
-    if (checked) {
-      this.setState({ categoryId: id }, () => {
-        this.getCategoryProducts();
-      });
-    } else {
-      this.setState({ searchInput: value });
-    }
-  }
-
-  async getProduct(e) {
-    e.preventDefault();
-    const { searchInput } = this.state;
-
-    this.setState({ loading: true }, () => {
-      getProductsFromCategoryAndQuery('', searchInput)
-        .then((response) => {
-          this.setState({ products: response.results }, () => {
-            this.setState({ searchInput: '', loading: false });
-          });
-        });
-    });
-  }
-
-  async getCategoryProducts({ target: { id } }) {
-    this.setState({ categoryId: id }, () => {
-      const { categoryId } = this.state;
-
-      this.setState({ loading: true }, () => {
-        getProductsFromCategoryAndQuery(categoryId)
-          .then((response) => {
-            this.setState({
-              products: response.results,
-              loading: false,
-            });
-          });
-      });
-    });
-  }
-
   render() {
-    const { handleInput, getProduct, getCategoryProducts } = this;
-    const { searchInput, products, loading } = this.state;
+    const { loading, getCategoryProducts, products } = this.props;
 
     const loader = (
       <div className="loader">
@@ -82,21 +26,20 @@ class Home extends Component {
     );
 
     return (
-      <>
-        <Header
-          handleInput={ handleInput }
-          getProduct={ getProduct }
-          searchInput={ searchInput }
-        />
-        <main className="main-content">
-          <Categories getCategoryProducts={ getCategoryProducts } />
-          <div className="products-container">
-            {loading ? loader : productsContainer}
-          </div>
-        </main>
-      </>
+      <main className="main-content">
+        <Categories getCategoryProducts={ getCategoryProducts } />
+        <div className="products-container">
+          {loading ? loader : productsContainer}
+        </div>
+      </main>
     );
   }
 }
+
+Home.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.any).isRequired,
+  loading: PropTypes.bool.isRequired,
+  getCategoryProducts: PropTypes.func.isRequired,
+};
 
 export default Home;
