@@ -54,3 +54,17 @@
   transform: scale(1.2);
   user-select: none;
 }
+
+.icon-backTo {
+  font-size: 36px;
+  left: 50px;
+  margin: 0;
+  position: absolute;
+  text-decoration: none;
+  top: 90px;
+  transition: all 0.2s linear;
+}
+
+.icon-backTo:hover {
+  transform: scale(1.4);
+}

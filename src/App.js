@@ -67,7 +67,6 @@ class App extends React.Component {
 
   render() {
     const { searchInput, products, loadingProduct, clickSearch } = this.state;
-    console.log(clickSearch);
 
     return (
       <BrowserRouter>
