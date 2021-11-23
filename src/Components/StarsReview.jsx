@@ -17,6 +17,29 @@ class StarsReview extends Component {
     };
 
     this.starClick = this.starClick.bind(this);
+    this.setReviewStars = this.setReviewStars.bind(this);
+  }
+
+  componentDidMount() {
+    const { clickable } = this.props;
+    if (!clickable) this.setReviewStars();
+  }
+
+  componentDidUpdate() {
+    const { resetStars } = this.props;
+    if (resetStars) this.resetStars();
+  }
+
+  setReviewStars() {
+    const { starsObj } = this.state;
+    const { selectedStars } = this.props;
+    const newStarsObj = starsObj.map((star, i) => {
+      if (i <= selectedStars - 1) star.filled = true;
+      if (i > selectedStars - 1) star.filled = false;
+      return star;
+    });
+
+    this.setState({ starsObj: newStarsObj });
   }
 
   starClick({ target: { name } }) {
@@ -34,21 +57,37 @@ class StarsReview extends Component {
     this.setState({ starsObj: newStarsObj });
   }
 
+  resetStars() {
+    const { starsObj } = this.state;
+    const newStarsObj = starsObj.map((star) => {
+      star.filled = false;
+      return star;
+    });
+    this.setState({ starsObj: newStarsObj });
+  }
+
   render() {
     const { starsObj } = this.state;
+    const { clickable } = this.props;
 
     return (
       <div>
         {starsObj.map(({ name, filled }) => (
           <span key={ name }>
-            <button
-              type="button"
-              className="star btn-star"
-              name={ name }
-              onClick={ this.starClick }
-            >
-              {!filled ? <AiOutlineStar /> : <AiFillStar />}
-            </button>
+            {clickable ? (
+              <button
+                type="button"
+                className="star btn-star"
+                name={ name }
+                onClick={ this.starClick }
+              >
+                {!filled ? <AiOutlineStar /> : <AiFillStar />}
+              </button>
+            ) : (
+              <span>
+                {!filled ? <AiOutlineStar /> : <AiFillStar />}
+              </span>
+            )}
           </span>
         ))}
       </div>
@@ -57,7 +96,16 @@ class StarsReview extends Component {
 }
 
 StarsReview.propTypes = {
-  handleStars: PropTypes.func.isRequired,
+  clickable: PropTypes.bool.isRequired,
+  handleStars: PropTypes.func,
+  resetStars: PropTypes.bool,
+  selectedStars: PropTypes.number,
+};
+
+StarsReview.defaultProps = {
+  selectedStars: 0,
+  handleStars: () => {},
+  resetStars: false,
 };
 
 export default StarsReview;
