@@ -81,6 +81,24 @@ const HeaderReview = styled.h3`
   padding: 5px 10px 15px 10px;
 `;
 
+const PurchaseTotal = styled.p`
+  position: absolute;
+  top: 115px;
+  right: 170px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  user-select: none;
+  z-index: 1;
+  color: whitesmoke;
+`;
+
+const ContainerProduct = styled.div`
+  display: flex;
+  flex-flow: column warp;
+  width: 70vw;
+  height: 10vh;
+`;
+
 class Checkout extends Component {
   constructor() {
     super();
@@ -94,19 +112,18 @@ class Checkout extends Component {
   }
 
   componentDidMount() {
-    const { cartItems } = this.state;
     this.handleItem();
-    const result = cartItems.reduce((acc, current) => acc + current.price, 0);
-    this.handlePurchaseTotal(result);
+    this.handlePurchaseTotal();
   }
 
   handleItem() {
     this.setState({ cartItems: getFromStorage() });
   }
 
-  handlePurchaseTotal(value) {
+  handlePurchaseTotal() {
+    const result = getFromStorage().reduce((acc, current) => acc + current.price, 0);
     this.setState({
-      purchaseTotal: value });
+      purchaseTotal: result });
   }
 
   render() {
@@ -121,8 +138,8 @@ class Checkout extends Component {
         </Link>
         <SectionReview>
           <HeaderReview>Revise seus produtos </HeaderReview>
-          <p>{purchaseTotal}</p>
-          <div>
+          <PurchaseTotal>{`R$ ${purchaseTotal}`}</PurchaseTotal>
+          <ContainerProduct>
             <ul>
               {cartItems.map(({ id, thumbnail, title, price, amount }) => (
                 <LiStyledReview key={ id }>
@@ -151,21 +168,46 @@ class Checkout extends Component {
                 </LiStyledReview>
               ))}
             </ul>
-          </div>
+          </ContainerProduct>
         </SectionReview>
         <SectionForm>
           <FormCheck action="">
             <h3>Informações do Comprador</h3>
-            <input type="text" name="" id="" placeholder="Nome Completo" />
-            <input type="text" name="" id="" placeholder="CPF" />
-            <input type="tel" name="" id="" placeholder="Telefone" />
-            <input type="text" name="" id="" placeholder="CEP" />
-            <input type="text" name="" id="" placeholder="Endereço" />
+            <input
+              data-testid="checkout-fullname"
+              type="text"
+              placeholder="Nome Completo"
+            />
+            <input
+              data-testid="checkout-cpf"
+              type="text"
+              placeholder="CPF"
+            />
+            <input
+              type="text"
+              placeholder="Email"
+              data-testid="checkout-email"
+            />
+            <input
+              data-testid="checkout-phone"
+              type="tel"
+              placeholder="Telefone"
+            />
+            <input
+              type="text"
+              placeholder="CEP"
+              data-testid="checkout-cep"
+            />
+            <input
+              type="text"
+              placeholder="Endereço"
+              data-testid="checkout-address"
+            />
             <input type="text" name="" id="" placeholder="Complemento" />
             <input type="text" name="" id="" placeholder="Número" />
             <input type="text" name="" id="" placeholder="Cidade" />
             <select name="" id="" value="Estados">
-              <option select disabled>Estados</option>
+              <option disabled>Estados</option>
               <option value="AC">Acre</option>
               <option value="AL">Alagoas</option>
               <option value="AP">Amapá</option>
