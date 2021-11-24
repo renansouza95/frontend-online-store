@@ -132,8 +132,10 @@ class ProductDetails extends Component {
             ) : (
               reviews.map(({ email, stars, comment }, index) => (
                 <div key={ `review-${index}` } className="review">
-                  <p>{email}</p>
-                  <div><StarsReview clickable={ false } selectedStars={ stars } /></div>
+                  <div className="email-stars">
+                    <p>{email}</p>
+                    <div><StarsReview clickable={ false } selectedStars={ stars } /></div>
+                  </div>
                   <p>{comment}</p>
                 </div>
               ))

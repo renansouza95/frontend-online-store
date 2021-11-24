@@ -1,7 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { getFromStorage } from '../services/storageCartItem';
 import '../Style/shoppingCart.css';
+
+const Counter = styled.span`
+  position: absolute;
+  top: 5px;
+  right: 25px;
+  color: whitesmoke;
+  text-align: center;
+  border-radius:50%;
+  border: 2px solid white;
+  width:30px;
+  height:30px;
+`;
 
 class CartCounter extends React.Component {
   constructor() {
@@ -32,7 +45,7 @@ class CartCounter extends React.Component {
     const { amount } = this.state;
 
     return (
-      <span className="cart-amount" data-testid="shopping-cart-size">{amount}</span>
+      <Counter className="cart-amount" data-testid="shopping-cart-size">{amount}</Counter>
     );
   }
 }
