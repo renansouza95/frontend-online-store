@@ -30,13 +30,15 @@ class index extends React.Component {
 
     return (
       <header className="header">
-        <h1>
-          Trybe-Libre
-          <Logo
-            alt="Logo trybe"
-            src={ TrybeLogo }
-          />
-        </h1>
+        <Link to="/">
+          <h1>
+            Trybe-Libre
+            <Logo
+              alt="Logo trybe"
+              src={ TrybeLogo }
+            />
+          </h1>
+        </Link>
         <div className="container-search">
           <SearchInput
             data-testid="query-input"

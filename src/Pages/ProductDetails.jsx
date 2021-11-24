@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { RiShoppingCartLine, RiReplyLine } from 'react-icons/ri';
+import { RiReplyLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import { getDetailedProduct, getProductDescription } from '../services/api';
@@ -101,22 +101,25 @@ class ProductDetails extends Component {
             <p className="product-price">
               { `R$ ${price}` }
             </p>
+            <img src={ image } alt={ title } />
             <AddToCart
               addToCart={ this.addToCart }
               idTest="product-detail-add-to-cart"
               disabledBtn={ !checkAvailability(productId) }
             />
-            <img src={ image } alt={ title } />
           </div>
+        </div>
+        <div className="product-more">
           <div className="product-specifications">
-            <p>Especificações: </p>
+            <p className="info-title">Especificações: </p>
             <ul>
               {attributes.length !== 0 && attributesList}
             </ul>
           </div>
-        </div>
-        <div className="product-description">
-          <p>{description}</p>
+          <div className="product-description">
+            <p className="info-title">Descrição</p>
+            <p className="description">{description}</p>
+          </div>
         </div>
         <div className="reviews-container">
           <p className="reviews-title">Avaliações</p>
@@ -144,10 +147,7 @@ class ProductDetails extends Component {
       <div className="product-details-page">
         <div>
           <Link to="/">
-            <RiReplyLine />
-          </Link>
-          <Link to="/shopping-cart">
-            <RiShoppingCartLine />
+            <RiReplyLine className="icon-backTo" color="rgb(46,46,46)" />
           </Link>
         </div>
         {loading ? loader : details}
