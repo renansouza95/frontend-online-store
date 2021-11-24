@@ -8,7 +8,14 @@ class index extends React.Component {
 
     return (
       <div className="products">
-        {products.map(({ title, price, thumbnail, id, available_quantity: quantity }) => (
+        {products.map(({
+          title,
+          price,
+          thumbnail,
+          id,
+          available_quantity: quantity,
+          shipping: { free_shipping: freeShipping },
+        }) => (
           <div key={ id } className="product">
             <CardProduct
               id={ id }
@@ -17,6 +24,7 @@ class index extends React.Component {
               price={ price }
               updateAmount={ updateAmount }
               availableQuantity={ quantity }
+              freeShipping={ freeShipping }
             />
           </div>
         ))}
