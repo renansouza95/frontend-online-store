@@ -71,10 +71,6 @@
   margin: 0.7rem 0 0.5rem;
 }
 
-.reviews .reviews-title {
-  font-size: x-large;
-}
-
 .icon-back {
   font-size: 36px;
   left: 5px;
@@ -87,4 +83,76 @@
 
 .icon-back:hover {
   transform: scale(1.4);
+}
+
+.reviews-container {
+  width: 80%;
+}
+
+.reviews-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.review-form {
+  border-bottom: 1px solid #252525;
+}
+
+.review-form input, .review-form textarea {
+  border: none;
+  border-bottom: 1px solid #9b9b9b;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  padding: 0.5rem 0.3rem;
+  width: 30%;
+}
+
+.review-form textarea {
+  max-height: 200px;
+  min-height: 100px;
+  resize: vertical;
+  width: 50%;
+}
+
+.review-form input:focus, .review-form textarea:focus {
+  border-bottom: 1px solid #252525;
+  outline: none;
+}
+
+.form-row1 {
+  align-items: center;
+  display: flex;
+}
+
+.stars {
+  margin: 0 1rem;
+}
+
+.star {
+  background-color: #fafafa;
+  border: none;
+  cursor: pointer;
+}
+
+.review-btn {
+  margin: 1rem 0;
+}
+
+.no-reviews {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.review {
+  border: 1px solid #252525;
+  margin: 1rem 0;
+}
+
+.review .email-stars {
+  align-items: center;
+  display: flex;
+}
+
+.review p {
+  margin: 1rem 0;
 }

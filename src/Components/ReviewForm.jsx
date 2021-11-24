@@ -64,7 +64,7 @@ class ReviewForm extends Component {
     return (
       <div className="review-form">
         <form>
-          <div className="form-row">
+          <div className="form-row form-row1">
             <input
               type="text"
               name="email"
@@ -95,7 +95,7 @@ class ReviewForm extends Component {
           <div className="form-row">
             <button
               type="button"
-              className="btn btn-black"
+              className="btn btn-black review-btn"
               onClick={ this.evaluateButton }
               disabled={ disableButton }
             >

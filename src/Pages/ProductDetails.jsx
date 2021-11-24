@@ -128,7 +128,7 @@ class ProductDetails extends Component {
           />
           <div className="reviews">
             {reviews === null ? (
-              <p>Seja o primeiro a avaliar!</p>
+              <p className="no-reviews">Seja o primeiro a avaliar!</p>
             ) : (
               reviews.map(({ email, stars, comment }, index) => (
                 <div key={ `review-${index}` } className="review">
