@@ -10,6 +10,7 @@ import AddToCart from '../Components/AddToCart';
 import ReviewForm from '../Components/ReviewForm';
 import StarsReview from '../Components/StarsReview';
 import { getReviews } from '../services/storageReviews';
+import checkAvailability from '../services/checkAvailability';
 import '../Style/productDetails.css';
 
 class ProductDetails extends Component {
@@ -62,7 +63,7 @@ class ProductDetails extends Component {
 
   render() {
     const {
-      product: { title, price, thumbnail = '', attributes = [] },
+      product: { title, price, thumbnail = '', attributes = [], id: productId },
       description: { plain_text: description },
       loading,
       reviews,
@@ -100,7 +101,11 @@ class ProductDetails extends Component {
             <p className="product-price">
               { `R$ ${price}` }
             </p>
-            <AddToCart addToCart={ this.addToCart } idTest="product-detail-add-to-cart" />
+            <AddToCart
+              addToCart={ this.addToCart }
+              idTest="product-detail-add-to-cart"
+              disabledBtn={ !checkAvailability(productId) }
+            />
             <img src={ image } alt={ title } />
           </div>
           <div className="product-specifications">
