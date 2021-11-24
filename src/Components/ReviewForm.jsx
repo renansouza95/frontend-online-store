@@ -42,7 +42,6 @@ class ReviewForm extends Component {
     const validations = (
       !validateEmail || stars === 0
     );
-    console.log(validations);
 
     return validations;
   }

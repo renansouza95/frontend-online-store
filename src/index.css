@@ -53,6 +53,29 @@ p, h1, h2, h3, li {
   color: #797979;
 }
 
+.btn-white {
+  background-color: #353535;
+  border: 2px solid #fafafa;
+  color: #fafafa;
+}
+
+.btn-white:hover {
+  background-color: #fafafa;
+  color: #353535;
+}
+
+.btn-white:active {
+  background-color: #f0f0f0;
+  border-color: #f0f0f0;
+  color: #252525;
+}
+
+.btn-white:disabled {
+  background-color: #797979;
+  border-color: #d8d8d8;
+  color: #d8d8d8;
+}
+
 button svg {
   pointer-events: none;
 }

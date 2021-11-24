@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { FaBarcode, FaCcMastercard, FaCreditCard } from 'react-icons/fa';
+import { FaBarcode } from 'react-icons/fa';
 import { RiReplyLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { getFromStorage } from '../services/storageCartItem';
@@ -86,32 +86,42 @@ class Checkout extends Component {
     super();
     this.state = {
       cartItems: [],
+      purchaseTotal: 0,
     };
 
     this.handleItem = this.handleItem.bind(this);
+    this.handlePurchase = this.handlePurchaseTotal.bind(this);
   }
 
   componentDidMount() {
+    const { cartItems } = this.state;
     this.handleItem();
+    const result = cartItems.reduce((acc, current) => acc + current.price, 0);
+    this.handlePurchaseTotal(result);
   }
 
   handleItem() {
     this.setState({ cartItems: getFromStorage() });
   }
 
+  handlePurchaseTotal(value) {
+    this.setState({
+      purchaseTotal: value });
+  }
+
   render() {
     const { state: {
       cartItems,
+      purchaseTotal,
     } } = this;
-
-    console.log(cartItems);
     return (
       <Main>
         <Link to="/shopping-cart">
           <RiReplyLine className="icon-backTo" color="rgb(46,46,46)" />
         </Link>
         <SectionReview>
-          <HeaderReview>Revise seus produtos</HeaderReview>
+          <HeaderReview>Revise seus produtos </HeaderReview>
+          <p>{purchaseTotal}</p>
           <div>
             <ul>
               {cartItems.map(({ id, thumbnail, title, price, amount }) => (
@@ -130,6 +140,7 @@ class Checkout extends Component {
                         data-testid="shopping-cart-product-quantity"
                       >
                         {amount}
+                        x
                       </p>
                     </div>
                   </div>
@@ -146,9 +157,9 @@ class Checkout extends Component {
           <FormCheck action="">
             <h3>Informações do Comprador</h3>
             <input type="text" name="" id="" placeholder="Nome Completo" />
-            <input type="number" name="" id="" placeholder="CPF" />
+            <input type="text" name="" id="" placeholder="CPF" />
             <input type="tel" name="" id="" placeholder="Telefone" />
-            <input type="number" name="" id="" placeholder="CEP" />
+            <input type="text" name="" id="" placeholder="CEP" />
             <input type="text" name="" id="" placeholder="Endereço" />
             <input type="text" name="" id="" placeholder="Complemento" />
             <input type="text" name="" id="" placeholder="Número" />

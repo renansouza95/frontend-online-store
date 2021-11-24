@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import changeImageSize from '../../services/changeImageSize';
 import AddToCart from '../AddToCart';
 import { addToStorage } from '../../services/storageCartItem';
+import checkAvailability from '../../services/checkAvailability';
 
 class index extends Component {
   constructor() {
@@ -14,8 +15,8 @@ class index extends Component {
   }
 
   addToCart() {
-    const { price, thumbnail, title, id, updateAmount } = this.props;
-    const item = { price, thumbnail, title, id };
+    const { price, thumbnail, title, id, updateAmount, availableQuantity } = this.props;
+    const item = { price, thumbnail, title, id, availableQuantity };
 
     addToStorage(item);
     updateAmount();
@@ -31,13 +32,18 @@ class index extends Component {
           <div
             data-testid="product"
             id={ id }
+            className="product"
           >
             <p className="product-title">{title}</p>
             <img src={ image } alt={ title } />
             <p>{`R$ ${price} `}</p>
           </div>
         </Link>
-        <AddToCart addToCart={ this.addToCart } idTest="product-add-to-cart" />
+        <AddToCart
+          addToCart={ this.addToCart }
+          idTest="product-add-to-cart"
+          disabledBtn={ !checkAvailability(id) }
+        />
       </div>
     );
   }
@@ -49,6 +55,7 @@ index.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.string,
   updateAmount: PropTypes.func.isRequired,
+  availableQuantity: PropTypes.number.isRequired,
 };
 
 index.defaultProps = {

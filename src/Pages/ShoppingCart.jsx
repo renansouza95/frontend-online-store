@@ -75,7 +75,14 @@ class ShoppingCart extends Component {
 
         <div className="cart-items">
           <ul>
-            {cartItems.map(({ id, thumbnail, title, price, amount }) => (
+            {cartItems.map(({
+              id,
+              thumbnail,
+              title,
+              price,
+              amount,
+              availableQuantity,
+            }) => (
               <LiStyled key={ id }>
                 <button
                   className="btn-icon-trash"
@@ -115,6 +122,7 @@ class ShoppingCart extends Component {
                       type="button"
                       id={ id }
                       onClick={ this.amountPlus }
+                      disabled={ amount >= availableQuantity }
                       className="button-sum"
                     >
                       <IoIosAddCircleOutline size={ 20 } />

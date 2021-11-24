@@ -59,7 +59,7 @@ class index extends React.Component {
           />
           <input
             data-testid="query-button"
-            className="btn btn-black btn-search"
+            className="btn btn-white btn-search"
             type="submit"
             value="Search"
             onClick={ getProduct }

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { RiReplyLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import styled from 'styled-components';
 import { getDetailedProduct, getProductDescription } from '../services/api';
 import changeImageSize from '../services/changeImageSize';
 import { addToStorage } from '../services/storageCartItem';
@@ -11,12 +10,8 @@ import AddToCart from '../Components/AddToCart';
 import ReviewForm from '../Components/ReviewForm';
 import StarsReview from '../Components/StarsReview';
 import { getReviews } from '../services/storageReviews';
+import checkAvailability from '../services/checkAvailability';
 import '../Style/productDetails.css';
-
-const ProductImage = styled.img`
-  width: 25%;
-  border: 2px solid black;
-`;
 
 class ProductDetails extends Component {
   constructor() {
@@ -68,7 +63,7 @@ class ProductDetails extends Component {
 
   render() {
     const {
-      product: { title, price, thumbnail = '', attributes = [] },
+      product: { title, price, thumbnail = '', attributes = [], id: productId },
       description: { plain_text: description },
       loading,
       reviews,
@@ -109,8 +104,9 @@ class ProductDetails extends Component {
             <AddToCart
               addToCart={ this.addToCart }
               idTest="product-detail-add-to-cart"
+              disabledBtn={ !checkAvailability(productId) }
             />
-            <ProductImage src={ image } alt={ title } />
+            <img src={ image } alt={ title } />
           </div>
           <div className="product-specifications">
             <p>Especificações: </p>
