@@ -58,10 +58,12 @@ class ProductDetails extends Component {
   }
 
   addToCart() {
+    const { updateAmount } = this.props;
     const { product: { price, thumbnail, title, id } } = this.state;
     const item = { price, thumbnail, title, id };
 
     addToStorage(item);
+    updateAmount();
   }
 
   render() {
@@ -164,6 +166,7 @@ ProductDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   }).isRequired,
+  updateAmount: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;

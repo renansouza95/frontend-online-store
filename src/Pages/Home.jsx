@@ -7,7 +7,7 @@ import '../Style/home.css';
 
 class Home extends Component {
   render() {
-    const { loading, getCategoryProducts, products } = this.props;
+    const { loading, getCategoryProducts, products, updateAmount } = this.props;
 
     const loader = (
       <div className="loader">
@@ -22,7 +22,9 @@ class Home extends Component {
     );
 
     const productsContainer = (
-      products.length === 0 ? initialMessage : <Products products={ products } />
+      products.length === 0 ? initialMessage : (
+        <Products products={ products } updateAmount={ updateAmount } />
+      )
     );
 
     return (
@@ -40,6 +42,7 @@ Home.propTypes = {
   products: PropTypes.arrayOf(PropTypes.any).isRequired,
   loading: PropTypes.bool.isRequired,
   getCategoryProducts: PropTypes.func.isRequired,
+  updateAmount: PropTypes.func.isRequired,
 };
 
 export default Home;

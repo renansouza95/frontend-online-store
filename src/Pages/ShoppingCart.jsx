@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { RiReplyLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { IoIosRemoveCircleOutline, IoIosAddCircleOutline } from 'react-icons/io';
@@ -35,6 +36,9 @@ class ShoppingCart extends Component {
 
     this.setState({ cartItems: newCart });
     addCartToStorage(newCart);
+
+    const { updateAmount } = this.props;
+    updateAmount();
   }
 
   amountLess({ target: { id } }) {
@@ -43,6 +47,9 @@ class ShoppingCart extends Component {
     cartItem.amount -= 1;
     this.setState({ cartItems });
     addCartToStorage(cartItems);
+
+    const { updateAmount } = this.props;
+    updateAmount();
   }
 
   amountPlus({ target: { id } }) {
@@ -51,6 +58,9 @@ class ShoppingCart extends Component {
     cartItem.amount += 1;
     this.setState({ cartItems });
     addCartToStorage(cartItems);
+
+    const { updateAmount } = this.props;
+    updateAmount();
   }
 
   render() {
@@ -123,5 +133,9 @@ class ShoppingCart extends Component {
     );
   }
 }
+
+ShoppingCart.propTypes = {
+  updateAmount: PropTypes.func.isRequired,
+};
 
 export default ShoppingCart;

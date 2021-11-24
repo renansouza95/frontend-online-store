@@ -14,10 +14,11 @@ class index extends Component {
   }
 
   addToCart() {
-    const { price, thumbnail, title, id } = this.props;
+    const { price, thumbnail, title, id, updateAmount } = this.props;
     const item = { price, thumbnail, title, id };
 
     addToStorage(item);
+    updateAmount();
   }
 
   render() {
@@ -47,6 +48,7 @@ index.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   id: PropTypes.string,
+  updateAmount: PropTypes.func.isRequired,
 };
 
 index.defaultProps = {

@@ -4,7 +4,7 @@ import CardProduct from '../CardProduct';
 
 class index extends React.Component {
   render() {
-    const { products } = this.props;
+    const { products, updateAmount } = this.props;
 
     return (
       <div className="products">
@@ -15,6 +15,7 @@ class index extends React.Component {
               title={ title }
               thumbnail={ thumbnail }
               price={ price }
+              updateAmount={ updateAmount }
             />
           </div>
         ))}
@@ -25,6 +26,7 @@ class index extends React.Component {
 
 index.propTypes = {
   products: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateAmount: PropTypes.func.isRequired,
 };
 
 export default index;
