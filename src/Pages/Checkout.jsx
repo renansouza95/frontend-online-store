@@ -125,7 +125,6 @@ class Checkout extends Component {
             <input type="text" name="" id="" placeholder="Número" />
             <input type="text" name="" id="" placeholder="Cidade" />
             <select>
-              <option disabled>Estados</option>
               <option value="AC">Acre</option>
               <option value="AL">Alagoas</option>
               <option value="AP">Amapá</option>
