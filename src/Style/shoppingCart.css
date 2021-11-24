@@ -57,11 +57,11 @@
 
 .icon-backTo {
   font-size: 36px;
-  left: 50px;
+  left: 5px;
   margin: 0;
   position: absolute;
   text-decoration: none;
-  top: 90px;
+  top: 75px;
   transition: all 0.2s linear;
 }
 
@@ -79,4 +79,23 @@
   font-size: 1.2rem;
   margin-bottom: 2rem;
   text-align: center;
+}
+
+@keyframes pulse {
+
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  33% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(3);
+  }
+
 }

@@ -74,3 +74,17 @@
 .reviews .reviews-title {
   font-size: x-large;
 }
+
+.icon-back {
+  font-size: 36px;
+  left: 5px;
+  margin: 0;
+  position: absolute;
+  text-decoration: none;
+  top: 75px;
+  transition: all 0.2s linear;
+}
+
+.icon-back:hover {
+  transform: scale(1.4);
+}

@@ -5,6 +5,7 @@ import Home from './Pages/Home';
 import ShoppingCart from './Pages/ShoppingCart';
 import ProductDetails from './Pages/ProductDetails';
 import Header from './Components/Header';
+import Checkout from './Pages/Checkout';
 import { getProductsFromCategoryAndQuery } from './services/api';
 
 class App extends React.Component {
@@ -111,6 +112,11 @@ class App extends React.Component {
                 updateAmount={ this.updateAmount }
               />
             ) }
+          />
+          <Route
+            exact
+            path="/checkout"
+            component={ Checkout }
           />
         </Switch>
         {clickSearch ? <Redirect to="/" /> : ''}
