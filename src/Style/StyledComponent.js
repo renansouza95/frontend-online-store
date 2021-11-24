@@ -36,6 +36,35 @@ const LiStyled = styled.li`
   }
 `;
 
+const LiStyledReview = styled.li`
+  align-items: center;
+  display: grid;
+  grid-template-columns: 20% 40% 15% 25%;
+  background-color: white;
+  border: 1px groove white;
+  box-shadow: 0  5px 10px rgba(194 , 192, 192, 0.9);
+  border-radius: 10px;
+  list-style: none;
+  justify-content: space-between;
+  margin: 10px 10px 20px 0;
+  padding: 20px;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+  width: 25vw;
+
+  img{
+    width: 60px;
+    margin: 0;
+    padding: 0;
+  }
+
+  :hover{
+    transform: scale(.99);
+    cursor: pointer;
+  }
+`;
+
 const BtnFinish = styled.input`
   position: sticky;
   bottom: 10px;
@@ -57,4 +86,4 @@ const BtnFinish = styled.input`
 
 `;
 
-export { ItemName, LiStyled, BtnFinish };
+export { ItemName, LiStyled, BtnFinish, LiStyledReview };

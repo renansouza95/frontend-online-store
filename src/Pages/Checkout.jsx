@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { FaBarcode, FaCcMastercard, FaCreditCard } from 'react-icons/fa';
 import { RiReplyLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { getFromStorage } from '../services/storageCartItem';
+import { LiStyledReview, ItemName } from '../Style/StyledComponent';
 
 const Main = styled.main`
   align-items: center;
@@ -38,22 +40,101 @@ padding: 10px;
 `;
 
 const SectionReview = styled.section`
-  border: 2px solid black;
+  border-bottom: 1px groove rgb(46, 46, 46);
+  border-radius: 8px;
   width: 80vw;
-  height: 20vh;
+  height: 35vh;
   margin: 20px 0;
-  padding: 10px;
+  overflow: auto;
+`;
+
+const ButtonBuy = styled.input`
+  background-color: rgb(46, 46, 46);
+  border-radius: 8px;
+  color: whitesmoke;
+  font-weight: 700;
+  text-transform: uppercase;
+  width: 15vw;
+  height: 10vh;
+  letter-spacing: 3px;
+  :hover{
+    color: rgb(46, 46, 46);
+    background-color: whitesmoke;
+  }
+`;
+
+const HeaderReview = styled.h3`
+  position: sticky;
+  top: 0;
+  background: rgba(46, 46, 46, 0.98);
+  color: whitesmoke;
+  margin: 0;
+  width: 100%;
+  height: 40px;
+  z-index: 1;
+  padding: 5px 10px 15px 10px;
 `;
 
 class Checkout extends Component {
+  constructor() {
+    super();
+    this.state = {
+      cartItems: [],
+    };
+
+    this.handleItem = this.handleItem.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleItem();
+  }
+
+  handleItem() {
+    this.setState({ cartItems: getFromStorage() });
+  }
+
   render() {
+    const { state: {
+      cartItems,
+    } } = this;
+
+    console.log(cartItems);
     return (
       <Main>
-        <Link to="/">
+        <Link to="/shopping-cart">
           <RiReplyLine className="icon-backTo" color="rgb(46,46,46)" />
         </Link>
         <SectionReview>
-          <h3>Revise seus produtos</h3>
+          <HeaderReview>Revise seus produtos</HeaderReview>
+          <div>
+            <ul>
+              {cartItems.map(({ id, thumbnail, title, price, amount }) => (
+                <LiStyledReview key={ id }>
+                  <img src={ thumbnail } alt={ title } className="cart-item-img" />
+                  <ItemName
+                    data-testid="shopping-cart-product-name"
+                    className="item-name"
+                  >
+                    {title}
+                  </ItemName>
+                  <div className="item-amount">
+                    <div className="container-buttons">
+                      <p
+                        className="text-amout"
+                        data-testid="shopping-cart-product-quantity"
+                      >
+                        {amount}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="item-price">
+                    R$
+                    {price}
+                  </p>
+                </LiStyledReview>
+              ))}
+            </ul>
+          </div>
         </SectionReview>
         <SectionForm>
           <FormCheck action="">
@@ -111,7 +192,7 @@ class Checkout extends Component {
           </form>
 
         </SectionPayment>
-        <input type="button" value="Comprar" />
+        <ButtonBuy type="button" value="Comprar" />
       </Main>
     );
   }
