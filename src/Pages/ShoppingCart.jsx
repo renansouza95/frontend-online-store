@@ -71,7 +71,7 @@ class ShoppingCart extends Component {
           <RiReplyLine className="icon-backTo" color="rgb(46,46,46)" />
         </Link>
         {cartItems.length === 0
-        && <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>}
+        && <p data-testid="shopping-cart-empty-message" style={ { display: 'none' } }>Seu carrinho está vazio</p>}
 
         <div className="cart-items">
           <ul>
