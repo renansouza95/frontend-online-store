@@ -14,12 +14,14 @@ class ShoppingCart extends Component {
 
     this.state = {
       cartItems: [],
+      total: 0,
     };
 
     this.setCartItems = this.setCartItems.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.amountLess = this.amountLess.bind(this);
     this.amountPlus = this.amountPlus.bind(this);
+    this.updateTotalPrice = this.updateTotalPrice.bind(this);
   }
 
   componentDidMount() {
@@ -27,14 +29,18 @@ class ShoppingCart extends Component {
   }
 
   setCartItems() {
-    this.setState({ cartItems: getFromStorage() });
+    this.setState({ cartItems: getFromStorage() }, () => {
+      this.updateTotalPrice();
+    });
   }
 
   removeItem({ target: { id } }) {
     const { cartItems } = this.state;
     const newCart = cartItems.filter((item) => item.id !== id);
 
-    this.setState({ cartItems: newCart });
+    this.setState({ cartItems: newCart }, () => {
+      this.updateTotalPrice();
+    });
     addCartToStorage(newCart);
 
     const { updateAmount } = this.props;
@@ -45,7 +51,9 @@ class ShoppingCart extends Component {
     const { cartItems } = this.state;
     const cartItem = cartItems.find((item) => item.id === id);
     cartItem.amount -= 1;
-    this.setState({ cartItems });
+    this.setState({ cartItems }, () => {
+      this.updateTotalPrice();
+    });
     addCartToStorage(cartItems);
 
     const { updateAmount } = this.props;
@@ -56,23 +64,46 @@ class ShoppingCart extends Component {
     const { cartItems } = this.state;
     const cartItem = cartItems.find((item) => item.id === id);
     cartItem.amount += 1;
-    this.setState({ cartItems });
+    this.setState({ cartItems }, () => {
+      this.updateTotalPrice();
+    });
     addCartToStorage(cartItems);
 
     const { updateAmount } = this.props;
     updateAmount();
   }
 
-  render() {
+  updateTotalPrice() {
     const { cartItems } = this.state;
+    const total = cartItems.reduce((acc, { price, amount }) => {
+      const itemsPrice = price * amount;
+      return acc + itemsPrice;
+    }, 0).toFixed(2);
+
+    this.setState({ total });
+  }
+
+  render() {
+    const { cartItems, total } = this.state;
     return (
       <div className="shopping-cart-page">
         <Link to="/">
           <RiReplyLine className="icon-backTo" color="rgb(46,46,46)" />
         </Link>
         {cartItems.length === 0
-        && <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>}
-
+          ? (
+            <p
+              className="cart-title"
+              data-testid="shopping-cart-empty-message"
+            >
+              Seu carrinho está vazio
+            </p>
+          ) : (
+            <>
+              <p className="cart-title">Carrinho de Itens</p>
+              <p className="cart-subtotal">{`Subtotal: ${total}`}</p>
+            </>
+          )}
         <div className="cart-items">
           <ul>
             {cartItems.map(({

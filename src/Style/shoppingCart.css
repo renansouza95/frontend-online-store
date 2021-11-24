@@ -1,5 +1,5 @@
 .cart-items ul {
-  align-content: center;
+  align-content: flex-start;
   display: flex;
   flex-flow: row wrap;
   min-height: 100vh;
@@ -67,4 +67,16 @@
 
 .icon-backTo:hover {
   transform: scale(1.4);
+}
+
+.cart-title {
+  font-size: 2.5rem;
+  margin: 2rem 0 0;
+  text-align: center;
+}
+
+.cart-subtotal {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  text-align: center;
 }
