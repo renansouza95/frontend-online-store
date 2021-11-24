@@ -14,7 +14,6 @@ class Home extends Component {
         <Loader type="ThreeDots" color="#272727" height={ 40 } width={ 40 } />
       </div>
     );
-
     const initialMessage = (
       <p data-testid="home-initial-message" className="initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
