@@ -24,19 +24,30 @@ const SearchInput = styled.input`
 }
 `;
 
+const MainHeader = styled.h1`
+  font-size: 42px;
+`;
+
+const LinkStyle = styled.a`
+  text-decoration: none;
+  cursor: pointer;
+`;
+
 class index extends React.Component {
   render() {
     const { handleInput, getProduct, searchInput, upAmount } = this.props;
 
     return (
       <header className="header">
-        <h1>
-          Trybe-Libre
-          <Logo
-            alt="Logo trybe"
-            src={ TrybeLogo }
-          />
-        </h1>
+        <LinkStyle href="/">
+          <MainHeader>
+            Trybe-Libre
+            <Logo
+              alt="Logo trybe"
+              src={ TrybeLogo }
+            />
+          </MainHeader>
+        </LinkStyle>
         <div className="container-search">
           <SearchInput
             data-testid="query-input"

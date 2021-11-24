@@ -17,14 +17,17 @@ const Main = styled.main`
 `;
 
 const SectionForm = styled.section`
-  align-content: center;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+align-content: center;
+border-bottom: 2px groove rgb(46, 46, 46);
+border-radius: 10px;
+box-shadow: 0 0 5px rgb(46, 46, 46);
+display: flex;
+flex-flow: row warp;
+justify-content: center;
+margin-bottom: 20px;
 `;
 
 const FormCheck = styled.form`
-border: 2px solid black;
 width: 80vw;
 height: 20vh;
 margin-bottom: 20px;
@@ -32,7 +35,9 @@ padding: 10px;
 `;
 
 const SectionPayment = styled.section`
-border: 2px solid black;
+border-bottom: 2px groove rgb(46, 46, 46);
+border-radius: 10px;
+box-shadow: 0 0 5px rgb(46, 46, 46);
 width: 80vw;
 height: 20vh;
 margin-bottom: 20px;
@@ -40,8 +45,9 @@ padding: 10px;
 `;
 
 const SectionReview = styled.section`
-  border-bottom: 1px groove rgb(46, 46, 46);
+  border-bottom: 2px groove rgb(46, 46, 46);
   border-radius: 8px;
+  box-shadow: 0 0 5px rgb(46, 46, 46);
   width: 80vw;
   height: 35vh;
   margin: 20px 0;
