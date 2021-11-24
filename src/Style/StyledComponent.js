@@ -36,4 +36,25 @@ const LiStyled = styled.li`
   }
 `;
 
-export { ItemName, LiStyled };
+const BtnFinish = styled.input`
+  position: sticky;
+  bottom: 10px;
+  left: 40vw;
+  border-radius: 10px;
+  background-color:rgb(46,46,46);
+  color: white;
+  width: 15vw;
+  height: 8vh;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: 0 0 0 0 rgba(red, .5);
+  transition: pulse 1.5s infinite;
+
+  :hover{
+    background-color:whitesmoke;
+    color: rgb(46, 46, 46) ;
+  }
+
+`;
+
+export { ItemName, LiStyled, BtnFinish };

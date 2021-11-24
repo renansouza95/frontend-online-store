@@ -6,7 +6,7 @@ import { IoIosRemoveCircleOutline, IoIosAddCircleOutline } from 'react-icons/io'
 import { BsTrashFill } from 'react-icons/bs';
 import { getFromStorage, addCartToStorage } from '../services/storageCartItem';
 import '../Style/shoppingCart.css';
-import { ItemName, LiStyled } from '../Style/StyledComponent';
+import { ItemName, LiStyled, BtnFinish } from '../Style/StyledComponent';
 
 class ShoppingCart extends Component {
   constructor() {
@@ -128,6 +128,14 @@ class ShoppingCart extends Component {
               </LiStyled>
             ))}
           </ul>
+          <Link to="/checkout">
+            <BtnFinish
+              type="button"
+              value="Finalizar compra"
+              className="pulse"
+              data-testid="checkout-products"
+            />
+          </Link>
         </div>
       </div>
     );
